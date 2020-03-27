@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA - ' + ${titulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Spring Boot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/listar}">Clientes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="alert-success" th:if="${success != null}" th:text="${success}"></div>
+    <div class="alert-danger" th:if="${error != null}" th:text="${error}"></div>
+    <div class="alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
+    <div class="alert-info" th:if="${info != null}" th:text="${info}"></div>
+
+
+</header>
+<div class="container">
+
+</div>
+<footer class="container" th:fragment="footer">
+    <img th:src="@{https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7678b49a-5746-4be5-8aa2-929f8695b3d3/dbzxjxr-2d393d2c-e2af-4c56-8978-1b45fe882c82.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi83Njc4YjQ5YS01NzQ2LTRiZTUtOGFhMi05MjlmODY5NWIzZDMvZGJ6eGp4ci0yZDM5M2QyYy1lMmFmLTRjNTYtODk3OC0xYjQ1ZmU4ODJjODIuZ2lmIn1dXX0.Mv_DE0QJ61APlgyvn_OC-14mHqEF7f6BW13SglbcKoI}" alt="Spring Logo"/>
+    <p>
+        Este proyecto fué desarrollado en IDE Intellij + Spring Plugins (STS Spring Tools), David ventas.<br/> &copy; Compañía 2020,
+        Inc. Todos los derechos reservados. Términos de uso y privacidad. <br/>
+    </p>
+
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script th:src="@{/js/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap.min.js}" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</footer>
+
+</body>
+</html>
