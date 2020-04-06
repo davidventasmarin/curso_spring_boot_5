@@ -112,5 +112,10 @@ public class Cliente implements Serializable {
         return serialVersionUID;
     }
 
+    @Override
+    public String toString() {
+        return  nombre + " " + apellidos;
+    }
+
     private static final long serialVersionUID = -7650997514009394061L;
 }
