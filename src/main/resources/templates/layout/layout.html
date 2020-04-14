@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA - ' + ${titulo}"></title>
@@ -23,6 +23,22 @@
                     <a class="nav-link" th:href="@{/listar}">Clientes</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto">
+                <li sec:authorize="!isAuthenticated()"><a clas="btn btn-outline-primary" th:href="@{/login}">Sign In</a></li>
+                <li sec:authorize="isAuthenticated()" class="dropdown">
+                    <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span sec:authentication="name"></span>
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <form id="logoutForm" th:action="@{/logout}" method="post">
+                            <button class="dropdown-item" type="submit"
+                                    onclick="document.getElementById('logoutForm').submit();">Sign Out</button>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        </form>
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
 
@@ -38,13 +54,16 @@
 </div>
 <footer class="container" th:fragment="footer">
     <img th:src="@{https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7678b49a-5746-4be5-8aa2-929f8695b3d3/dbzxjxr-2d393d2c-e2af-4c56-8978-1b45fe882c82.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi83Njc4YjQ5YS01NzQ2LTRiZTUtOGFhMi05MjlmODY5NWIzZDMvZGJ6eGp4ci0yZDM5M2QyYy1lMmFmLTRjNTYtODk3OC0xYjQ1ZmU4ODJjODIuZ2lmIn1dXX0.Mv_DE0QJ61APlgyvn_OC-14mHqEF7f6BW13SglbcKoI}" alt="Spring Logo"/>
+    <p sec:authorize="isAuthenticated()">
+        Usuario logeado: <span sec:authentication="name"></span> | Roles: <span sec:authentication="principal.authorities"></span>
+    </p>
     <p>
         Este proyecto fué desarrollado en IDE Intellij + Spring Plugins (STS Spring Tools), David ventas.<br/> &copy; Compañía 2020,
         Inc. Todos los derechos reservados. Términos de uso y privacidad. <br/>
     </p>
 
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-   <!-- <script th:src="@{/js/popper.min.js}"></script>-->
+   <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/jquery-ui.min.js}"></script>
 </footer>
