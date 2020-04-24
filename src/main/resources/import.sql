@@ -43,3 +43,11 @@ INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (4,1,5);
 INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES ('Juegos', null, 1, now());
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (3,2,4);
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (3,2,3);
+
+/* Poblar tabla usuario y roles*/
+INSERT INTO users (username, password, enabled) VALUES ('David', '$2a$10$PjtXkgA5vEaBFFk2Au8h1.6gFmMeuuSKY41tyIPMURCmP97wU1wXi', 't');
+INSERT INTO users (username, password, enabled) VALUES ('admin', '$2a$10$t1PMEJvaVEELdoppbxRN5eFDFqWtrh8N0MQq3op0D09sFAWdkvEKy', 't');
+
+INSERT INTO authorities (user_id, authority) VALUES (1, 'ROLE_USER');
+INSERT INTO authorities (user_id, authority) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO authorities (user_id, authority) VALUES (2, 'ROLE_USER');
