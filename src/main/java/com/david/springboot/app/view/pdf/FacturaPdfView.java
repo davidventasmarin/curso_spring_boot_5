@@ -8,29 +8,43 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.tomcat.util.descriptor.LocalResolver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.util.Locale;
 import java.util.Map;
 
 
 @Component("factura/ver")
 public class FacturaPdfView extends AbstractPdfView {
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private LocaleResolver localeResolver;
+
     @Override
     protected void buildPdfDocument(Map<String, Object> map, Document document, PdfWriter pdfWriter,
-                                    HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+                                    HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
         Factura factura = (Factura) map.get("factura");
+
+        Locale locale = localeResolver.resolveLocale(request);
 
         PdfPTable tablaCliente = new PdfPTable(1);
         tablaCliente.setSpacingAfter(20);
         PdfPCell cell = null;
 
 
-        cell = new PdfPCell(new Phrase("Datos del Cliente"));
+        cell = new PdfPCell(new Phrase(messageSource.getMessage("text.login.success", null, locale)));
         cell.setBackgroundColor(new Color(184, 218, 255));
         cell.setPadding(8f);
         tablaCliente.addCell(cell);
@@ -40,7 +54,7 @@ public class FacturaPdfView extends AbstractPdfView {
 
         PdfPTable tablaFactura = new PdfPTable(1);
         tablaFactura.setSpacingAfter(20);
-        cell = new PdfPCell(new Phrase("Datos de la Factura"));
+        cell = new PdfPCell(new Phrase(messageSource.getMessage("text.login.success", null, locale)));
         cell.setBackgroundColor(new Color(195, 230, 203));
         cell.setPadding(8f);
         tablaFactura.addCell(cell);
@@ -61,7 +75,10 @@ public class FacturaPdfView extends AbstractPdfView {
         for(ItemFactura item: factura.getItems()){
             tablaProducto.addCell(item.getProducto().getNombre());
             tablaProducto.addCell(item.getProducto().getPrecio().toString());
-            tablaProducto.addCell(item.getCantidad().toString());
+
+            cell = new PdfPCell((new Phrase(item.getCantidad().toString())));
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            tablaProducto.addCell(cell);
             tablaProducto.addCell(item.calcularImporte().toString());
         }
 
