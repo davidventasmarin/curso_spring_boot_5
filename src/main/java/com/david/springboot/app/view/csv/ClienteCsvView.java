@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-@Component("listar.csv")
+@Component("listar")
 public class ClienteCsvView extends AbstractView {
 
     public ClienteCsvView() {
@@ -26,19 +26,24 @@ public class ClienteCsvView extends AbstractView {
     }
 
     @Override
-    protected void renderMergedOutputModel(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setHeader("Content-Disposition", "attachment; filename=\"cliente.csv\"");
-        response.setContentType(getContentType());
-        Page<Cliente> clientes = (Page<Cliente>) map.get("clientes");
+    protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
+                                           HttpServletResponse response) throws Exception {
 
-        ICsvBeanWriter beanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        response.setHeader("Content-Disposition", "attachment; filename=\"clientes.csv\"");
+        response.setContentType(getContentType());
+
+
+        Page<Cliente> clientes = (Page<Cliente>) model.get("clientes");
+
+        ICsvBeanWriter beanWriter = new CsvBeanWriter(response.getWriter(),  CsvPreference.STANDARD_PREFERENCE);
 
         String[] header = {"id", "nombre", "apellidos", "email", "createAt"};
         beanWriter.writeHeader(header);
 
-        for(Cliente cliente:clientes){
+        for(Cliente cliente: clientes) {
             beanWriter.write(cliente, header);
         }
+
         beanWriter.close();
     }
 }
