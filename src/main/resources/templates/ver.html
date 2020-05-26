@@ -35,8 +35,8 @@
                         <th>descripción</th>
                         <th>fecha</th>
                         <th>total</th>
-                        <th class="btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')">ver</th>
-                        <th class="btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')">ver</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,8 +45,8 @@
                         <td th:text="${factura.descripcion}"></td>
                         <td th:text="${factura.createAt}"></td>
                         <td th:text="${factura.total}"></td>
-                        <td class="btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs" th:href="@{'/factura/ver/' + ${factura.id}}" th:text="'detalle'"></a></td>
-                        <td class="btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs" th:href="@{'/factura/eliminar/' + ${factura.id}}"
+                        <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs" th:href="@{'/factura/ver/' + ${factura.id}}" th:text="'detalle'"></a></td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs" th:href="@{'/factura/eliminar/' + ${factura.id}}"
                                th:text="'eliminar'" onclick="return confirm('¿Estás seguro de que desea eliminar la factura?')"
                         ></a></td>
                     </tr>
