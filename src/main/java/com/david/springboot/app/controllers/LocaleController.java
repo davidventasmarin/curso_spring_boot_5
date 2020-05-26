@@ -11,7 +11,6 @@ public class LocaleController {
     @GetMapping("/locale")
     public String locale(HttpServletRequest request){
         String ultimaUrl = request.getHeader("referer");
-
         return "redirect:" + ultimaUrl;
     }
 }
