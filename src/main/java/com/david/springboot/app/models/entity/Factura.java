@@ -18,22 +18,22 @@ public class Factura implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
     @NotEmpty
-    public String descripcion;
-    public String observacion;
+    private String descripcion;
+    private String observacion;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
-    public Date createAt;
+    private Date createAt;
     //Muchas facturas pertenecen a un cliente
     @ManyToOne(fetch=FetchType.LAZY)
-    public Cliente cliente;
+    private Cliente cliente;
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "factura_id")
-    public List<ItemFactura> items;
+    private List<ItemFactura> items;
 
     @PrePersist
     public void prePersist(){
@@ -72,6 +72,7 @@ public class Factura implements Serializable {
         this.createAt = createAt;
     }
 
+    @XmlTransient
     public Cliente getCliente() {
         return cliente;
     }
